@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Chat - Chat{% endblock %}
+
+
+{% block style %}
+<style>
+    .scrollbar-w-2::-webkit-scrollbar {
+        width: 0.25rem;
+        height: 0.25rem;
+    }
+
+    .scrollbar-track-blue-lighter::-webkit-scrollbar-track {
+        --bg-opacity: 1;
+        background-color: #f7fafc;
+        background-color: rgba(247, 250, 252, var(--bg-opacity));
+    }
+
+    .scrollbar-thumb-blue::-webkit-scrollbar-thumb {
+        --bg-opacity: 1;
+        background-color: #edf2f7;
+        background-color: rgba(237, 242, 247, var(--bg-opacity));
+    }
+
+    .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+        border-radius: 0.25rem;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+
+<script type="module" src="{% static 'js/chat.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<!-- alert -->
+<div class="grid place-items-center">
+    {% include 'chat/modal_alert.html' %}
+</div>
+<div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+    <div id="messages"
+        class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+        <div class="chat-message-log">
+            <div class="flex items-center justify-center">
+                <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-center">
+                    <div class="px-4 py-2 rounded-lg inline-block 300">
+                        <legend class="text-sm text-zinc-500 font-bold">Anonimo<span class="text-zinc-400">
+                                entrou</span></legend>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-message-log">
+            <div class="flex items-center justify-center">
+                <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-center">
+                    <div class="px-4 py-2 rounded-lg inline-block 300">
+                        <legend class="text-sm text-zinc-500 font-bold">Artista<span class="text-zinc-400">
+                                entrou</span>
+                        </legend>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-message">
+            <div class="flex items-end">
+                <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                    <div class="px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600">
+                        <legend class="text-sm text-amber-900 font-bold uppercase">Artista</legend>
+                        <span class="text-base">Mensagem de outros</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-message">
+            <div class="flex items-end justify-end">
+                <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                    <div class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-indigo-600 text-white">
+                        <span class="text-base">Minhas messages</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pt-8 pb-8 mb-3 mt-3"></div>
+    <div class="fixed inset-x-9 bottom-9 border-t-1 border-gray-200 px-4 pt-4 mb-1 sm:mb-0">
+        <form class="relative flex" id="message-form">
+            <input name="message" type="text" placeholder="Escreva aqui sua mensagem ..."
+                class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3"
+                autocomplete="off">
+            <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
+                <button type="submit" id="send-btn"
+                    class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-400 ease-in-out text-indigo-900 hover:text-indigo-700 focus:outline-none">
+                    <span class="font-bold">Enviar</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="h-6 w-6 ml-2 transform rotate-90">
+                        <path
+                            d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

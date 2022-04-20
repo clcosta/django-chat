@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Chat - Homepage{% endblock %}
+
+{% block style %}
+<style>
+    html {
+        background-color: blueviolet;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'js/homepage.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<div class="flex items-center h-screen w-full bg-teal-lighter">
+    <div class="w-full bg-white rounded shadow-lg p-8 m-4 md:max-w-sm md:mx-auto">
+        <h1 class="block w-full text-center uppercase font-bold text-3xl text-grey-darkest mb-6">Bem vindo ao <span
+                class="text-indigo-600">Chat</span></h1>
+        <div class="mb-4 md:flex md:flex-wrap md:justify-between">
+            <div class="flex flex-col mb-4 md:w-full">
+                <label class="mb-2 uppercase font-bold text-lg text-gray-600" for="username">Digite seu nome</label>
+                <input
+                    class="text-grey-darkest py-2 px-3 border border-1 border-indigo-500 focus:ring-indigo-500 focus:border-indigo-500 rounded"
+                    type="text" name="username" id="username" minlength="3 " autocomplete="off">
+                <span id="invalid" class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"></span>
+            </div>
+            <button id="join"
+                class="block bg-indigo-700 hover:bg-indigo-600 text-white uppercase text-lg mx-auto p-4 rounded"
+                type="submit">Entrar no CHAT</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
