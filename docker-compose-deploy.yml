@@ -9,7 +9,6 @@ services:
     volumes:
       - redisdata:/data
   web:
-    image: clcostaf/django-chat
     env_file:
       - .env
     build: .
@@ -17,7 +16,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "8000:${DJANGO_PORT}"
+      - "${DJANGO_PORT}:${DJANGO_PORT}"
     depends_on:
       - db
       - redis
@@ -28,7 +27,17 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+  proxy:
+    build:
+      context: ./proxy
+    volumes:
+      - static_data:/public/static
+    ports:
+      - "${PROXY_PORT}:${PROXY_PORT}"
+    depends_on:
+      - web
 
 volumes:
   postgres_data:
   redisdata:
+  static_data:

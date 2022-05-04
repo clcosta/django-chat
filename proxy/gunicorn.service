@@ -1,0 +1,18 @@
+[Unit]
+Description=gunicorn daemon for chat
+Requires=gunicorn_chat.socket
+After=network.target
+
+[Service]
+Type=notify
+User=root
+Group=www-data
+WorkingDirectory=/var/www/chat
+ExecStart=/var/www/chat/venv/bin/gunicorn ws_chat.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
