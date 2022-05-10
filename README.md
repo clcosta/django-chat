@@ -24,6 +24,12 @@ redis-server <=5.0.7
 git clone https://github.com/clcosta/django-chat.git
 ```
 
+2. Você pode executar tudo com o **Docker**
+
+```
+docker pull clcostaf/django-chat:latest
+```
+
 ## Como utilizar
 
 **OBS: lembre-se de instalar as bibliotecas com o comando: `pip install -r requirements.txt`**
