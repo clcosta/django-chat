@@ -1,5 +1,7 @@
 PY3 = python
 APP = 
+DJ_PORT = 8000
+DJ_HOST = 0.0.0.0
 ## Roda o servidor, verifica o codigo antes,  realiza as migracoes e depois colocando o server no ar.
 .PHONY: all
 all: check migrate run ## 
@@ -11,6 +13,11 @@ all: check migrate run ##
 .PHONY: check
 check: ## 
 	$(PY3) manage.py check
+
+## Coleta os arquivos estaticos
+.PHONY: static
+static: ## 
+	$(PY3) manage.py collectstatic
 
 ## Roda o makemigrations do django e o migrate
 .PHONY: migrate
@@ -24,7 +31,10 @@ migrations:
 ## Somente roda o servidor sem fazer nenhuma checagem antes
 .PHONY: run
 run: ##
-	$(PY3) manage.py runserver
+
+	# $(PY3) manage.py runserver $(DJ_HOST):$(DJ_PORT)
+	# gunicorn --bind $(DJ_HOST):$(DJ_PORT) ws_chat.wsgi
+	gunicorn ws_chat.asgi:application -k uvicorn.workers.UvicornWorker -b $(DJ_HOST):$(DJ_PORT)
 
 .PHONY: help
 help:

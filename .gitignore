@@ -295,3 +295,6 @@ $RECYCLE.BIN/
 
 ## TODO LIST
 todo.txt
+
+# staticfiles
+staticfiles/*

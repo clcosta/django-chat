@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+
 import environ
 from dotenv import load_dotenv
+
 ## DJANGO ENVIRON
 load_dotenv()
 env = environ.Env()
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -86,18 +89,11 @@ WSGI_APPLICATION = "ws_chat.wsgi.application"
 
 ## GROUP CHANNEL | CHANNEL LAYER
 
-REDIS_HOST = env("REDIS_HOST", default="redis")
+# REDIS_HOST = env("REDIS_HOST", default="redis")
 
-REDIS_PORT = env("REDIS_PORT", default=6379)
+# REDIS_PORT = env("REDIS_PORT", default=6379)
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [(REDIS_HOST, REDIS_PORT)],
-        },
-    },
-}
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -148,6 +144,8 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "pages/static",
 ]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

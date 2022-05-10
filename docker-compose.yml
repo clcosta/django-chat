@@ -1,33 +1,12 @@
 version: "3.8"
 
 services:
-  redis:
-    restart: always
-    image: redis:latest
-    ports:
-      - "6379:6379"
-    volumes:
-      - redisdata:/data
   web:
     env_file:
       - .env
     build: .
-    command: sh -c "python manage.py migrate && python manage.py runserver ${SERVER_HOST}:8000"
+    command: sh -c "make DJ_HOST=${DJANGO_HOST} DJ_PORT=${DJANGO_PORT}"
     volumes:
       - .:/app
     ports:
-      - 8000:8000
-    depends_on:
-      - db
-      - redis
-  db:
-    image: postgres:latest
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-
-volumes:
-  postgres_data:
-  redisdata:
+      - 8000:${DJANGO_PORT}

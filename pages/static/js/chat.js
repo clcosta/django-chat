@@ -11,7 +11,7 @@ const userEncode = (params.user) ? params.user : defaultUser
 
 window.history.pushState("", "", '/chat/return/')
 
-const wsPrefix = (window.location.protocol == 'https') ? 'wss://' : 'ws://'
+const wsPrefix = (window.location.protocol === 'https:') ? 'wss://' : 'ws://'
 const wsUrl = `${wsPrefix}${window.location.host}/ws/chat/${encodeURIComponent(userEncode)}/`
 
 const chatsocket = new WebSocket(wsUrl)
