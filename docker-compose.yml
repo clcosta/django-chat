@@ -5,19 +5,18 @@ services:
     restart: always
     image: redis:latest
     ports:
-      - "${REDIS_PORT}:${REDIS_PORT}"
+      - "6379:6379"
     volumes:
       - redisdata:/data
   web:
-    image: clcostaf/django-chat
     env_file:
       - .env
     build: .
-    command: sh -c "make migrate && make run DJ_PORT=${DJANGO_PORT}"
+    command: sh -c "python manage.py migrate && python manage.py runserver ${SERVER_HOST}:8000"
     volumes:
       - .:/app
     ports:
-      - "8000:${DJANGO_PORT}"
+      - 8000:8000
     depends_on:
       - db
       - redis

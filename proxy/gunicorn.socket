@@ -1,8 +1,0 @@
-[Unit]
-Description=gunicorn socket for chat
-
-[Socket]
-ListenStream=/run/gunicorn_chat.socket
-
-[Install]
-WantedBy=sockets.target

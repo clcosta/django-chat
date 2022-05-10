@@ -1,7 +1,5 @@
 PY3 = python
 APP = 
-DJ_HOST = 0.0.0.0
-DJ_PORT = 8000
 ## Roda o servidor, verifica o codigo antes,  realiza as migracoes e depois colocando o server no ar.
 .PHONY: all
 all: check migrate run ## 
@@ -26,7 +24,7 @@ migrations:
 ## Somente roda o servidor sem fazer nenhuma checagem antes
 .PHONY: run
 run: ##
-	$(PY3) manage.py runserver $(DJ_HOST):$(DJ_PORT)
+	$(PY3) manage.py runserver
 
 .PHONY: help
 help:
